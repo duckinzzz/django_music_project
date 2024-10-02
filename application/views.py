@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView
+from unidecode import unidecode
 
 from application.forms import ArtistCreateForm, AlbumCreateForm
 from application.models import Artist, Album, Track
@@ -22,7 +23,7 @@ class ArtistCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         name = form.cleaned_data['name']
-        slug = slugify(name)
+        slug = slugify(unidecode(name))
         if Artist.objects.filter(slug=slug).exists():
             form.add_error('name', 'Artist with this name already exists')
             return self.form_invalid(form)
@@ -41,11 +42,6 @@ class RecentReleasesListView(ListView):
 
 class ArtistDetailView(DetailView):
     model = Artist
-    slug_url_kwarg = 'slug'
-
-    def get_object(self, queryset=None):
-        slug = self.kwargs.get(self.slug_url_kwarg)
-        return get_object_or_404(Artist, slug=slug)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

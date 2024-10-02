@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse_lazy
 from django.utils.text import slugify
+from unidecode import unidecode
 
 
 class Artist(models.Model):
@@ -25,7 +25,7 @@ class Album(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.slug = slugify(self.title)
+            self.slug = slugify(unidecode(self.title))
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
