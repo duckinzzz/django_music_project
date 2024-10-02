@@ -1,0 +1,11 @@
+{% extends 'application/base.html' %}
+
+{% block title %}{{ object.name }} | {{ object.artist.name }}{% endblock %}
+
+{% block content %}
+    <a href="{{ object.album.get_absolute_url }}" style="display: block; margin: 20px 0 20px 20px"> &lt;Back to album</a>
+    <img src="{{ object.album.album_cover.url }}" alt="{{ object.title }} cover"
+         style="width:250px; height:auto; display: block; margin-left: auto; margin-right: auto; border: 1px solid black;">
+    <h1 style="text-align: center;">{{ object.position }}. {{ object.name }}</h1>
+    <p style="text-align: center; margin-bottom: 100px;">{{ object.lyrics|linebreaksbr }}</p>
+{% endblock %}

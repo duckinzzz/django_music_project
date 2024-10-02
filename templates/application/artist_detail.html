@@ -1,0 +1,25 @@
+{% extends 'application/base.html' %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+    <div class="artist-albums">
+        <h1 style="text-align: center;">{{ object.name }}'s music</h1>
+        <img src="{{ object.artist_cover.url }}" alt="{{ object.name }} cover"
+             style="width:300px; height:auto; display: block; margin-left: auto; margin-right: auto; border: 1px solid black;">
+        <div class="recent-albums">
+            {% for album in albums %}
+                <div class="album-card">
+                    <p><strong>Album:</strong> {{ album.name }}</p>
+                    <p><strong>Genre:</strong> {{ album.genre }}</p>
+                    <p><strong>Released:</strong> {{ album.release_date }}</p>
+                    <img src="{{ album.album_cover.url }}" alt="{{ album.title }} cover" class="album-cover"
+                         style="width:250px; height:auto;">
+                    <a href="{{ album.get_absolute_url }}">See Album Details</a>
+                </div>
+            {% empty %}
+                <p>No albums yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ABOBA MUSIC PROJECT{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+</head>
+<body>
+<header>
+    <div class="navbar-left">
+        <a href="/">Home</a>
+    </div>
+    <div class="navbar-right">
+        {% if user.is_authenticated %}
+            <span class="user-welcome">Welcome, {{ user.username }}!</span>
+            <form id="logout-form" action="{% url 'logout' %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="logout-button">
+                    Logout
+                </button>
+            </form>
+
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+    </div>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock content %}
+</main>
+
+<footer>
+    ABOBA MUSIC PROJECT 2024
+</footer>
+</body>
+</html>

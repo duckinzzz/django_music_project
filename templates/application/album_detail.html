@@ -1,0 +1,25 @@
+{% extends 'application/base.html' %}
+
+{% block title %}{{ object.title }} | {{ object.artist.name }}{% endblock %}
+
+{% block content %}
+    <div class="artist-albums">
+        <h1 style="text-align: center;">{{ object.title }}</h1>
+        <img src="{{ object.album_cover.url }}" alt="{{ object.title }} cover"
+             style="width:250px; height:auto; display: block; margin-left: auto; margin-right: auto; border: 1px solid black;">
+
+        <div style="text-align: center;">
+            <ul style="list-style-type: none; padding-left: 0; display: inline-block;">
+                {% for track in tracks %}
+                    <li style="margin-bottom: 10px;">
+                        <strong>{{ track.position }}. <a
+                                href="{{ track.get_absolute_url }}">{{ track.name }}</a></strong>
+                    </li>
+                {% empty %}
+                    <li>no tracks yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+    

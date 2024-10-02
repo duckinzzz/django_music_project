@@ -1,0 +1,75 @@
+{% extends 'application/base.html' %}
+
+{% block title %}Album Creation{% endblock %}
+
+{% block content %}
+    <div class="registration-container">
+        <h2>Album Creation</h2>
+        <form method="POST" action="" class="album_create">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="{{ form.artist.id_for_label }}">Artist</label>
+                {{ form.artist }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Title</label>
+                {{ form.title }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.genre.id_for_label }}">Genre</label>
+                {{ form.genre }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.release_date.id_for_label }}">Release Date</label>
+                {{ form.release_date }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.album_cover.id_for_label }}">Album Cover</label>
+                {{ form.album_cover }}
+            </div>
+
+            <button type="submit">Create</button>
+
+            {% if form.non_field_errors or form.artist.errors or form.title.errors or form.genre.errors or form.release_date.errors or form.album_cover.errors %}
+                <div class="alert alert-danger mt-3">
+                    <strong>Please correct the following errors:</strong>
+                    <ul>
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                        {% if form.artist.errors %}
+                            {% for error in form.artist.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endif %}
+                        {% if form.title.errors %}
+                            {% for error in form.title.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endif %}
+                        {% if form.genre.errors %}
+                            {% for error in form.genre.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endif %}
+                        {% if form.release_date.errors %}
+                            {% for error in form.release_date.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endif %}
+                        {% if form.album_cover.errors %}
+                            {% for error in form.album_cover.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

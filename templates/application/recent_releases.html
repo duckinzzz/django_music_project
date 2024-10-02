@@ -1,0 +1,18 @@
+{% extends 'application/base.html' %}
+
+{% block title %}ABOBA MUSIC PROJECT{% endblock %}
+
+{% block content %}
+    <div class="recent-albums">
+        {% for album in albums %}
+            <div class="album-card">
+                <p><strong>Album:</strong> {{ album.title }}</p>
+                <p><strong>Artist:</strong> {{ album.artist.name }}</p>
+                <p><strong>Genre:</strong> {{ album.genre }}</p>
+                <p><strong>Released:</strong> {{ album.release_date }}</p>
+                <img src="{{ album.album_cover.url }}" alt="{{ album.title }} cover" style="width:200px; height:auto;">
+                <a href="{{ album.get_absolute_url }}">see</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

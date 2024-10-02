@@ -1,0 +1,8 @@
+*.sqlite3
+.venv/
+.idea
+**/__pycache__/
+media/album_covers/*
+media/artist_pics/*
+!media/album_covers/default_cover.jpg
+!media/artist_pics/default_cover.jpg
